@@ -1,0 +1,14 @@
+{
+  "name": "webhook-nodejs-sample",
+  "version": "1.0.0",
+  "description": "Webhook nodejs sample",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Prashanth Anem",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4"
+  }
+}
