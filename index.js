@@ -33,8 +33,8 @@ ExpServer.post("/orders", function(req, res) {
                 } 
              }); 
    return res.json({
-    speech: a,
-    displayText: b,
+    speech: "Prashanth",
+    displayText: "Anem",
     source: "webhook-echo-sample"
   });
 });
