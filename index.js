@@ -21,15 +21,22 @@ ExpServer.post("/orders", function(req, res) {
     req.body.result.parameters.ID
       ? req.body.result.parameters.ID
       : "Seems like some problem. Speak again.";
+    var a,b;
+    
     request.get({ url: "https://prashanthdbp1942060739trial.hanatrial.ondemand.com/Testing/data/searchorder.xsjs?ID=1000100103"},      function(error, response, body) { 
-              if (!error && response.statusCode == 200) {                 
-                res.json({
-                speech: response.body.speech,
-                displayText: response.body.displayText,
-                source: "webhook-echo-sample"
-                });
+              if (!error && response.statusCode == 200) {   
+                
+                a = body.speech;
+                b = body.displayText;
+                
+               
                 } 
              }); 
+   return res.json({
+    speech: a,
+    displayText: b,
+    source: "webhook-echo-sample"
+  });
 });
 
 ExpServer.listen(process.env.PORT || 8000, function() {
