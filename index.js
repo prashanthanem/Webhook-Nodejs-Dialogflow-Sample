@@ -24,8 +24,8 @@ ExpServer.post("/orders", function(req, res) {
     request.get({ url: "https://prashanthdbp1942060739trial.hanatrial.ondemand.com/Testing/data/searchorder.xsjs?ID=1000100103"},      function(error, response, body) { 
               if (!error && response.statusCode == 200) {                 
                 res.json({
-                speech: body.speech,
-                displayText: body.displayText,
+                speech: response.body.speech,
+                displayText: response.body.displayText,
                 source: "webhook-echo-sample"
                 });
                 } 
