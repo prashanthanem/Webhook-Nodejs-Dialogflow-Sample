@@ -23,11 +23,7 @@ ExpServer.post("/orders", function(req, res) {
       : "Seems like some problem. Speak again.";
   request.get({ url: "https://prashanthdbp1942060739trial.hanatrial.ondemand.com/Testing/data/searchorder.xsjs?ID=" + speech },      function(error, response, body) { 
               if (!error && response.statusCode == 200) { 
-                 return res.json({
-                 speech: speech,
-                 displayText: displayText,
-                 source: "webhook-nodejs-sample"
-                  }); 
+                 return res;
                  } 
              }); 
 });
