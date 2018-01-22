@@ -21,7 +21,7 @@ ExpServer.post("/orders", function(req, res) {
     req.body.result.parameters.ID
       ? req.body.result.parameters.ID
       : "Seems like some problem. Speak again.";
-  request.get({ url: "https://prashanthdbp1942060739trial.hanatrial.ondemand.com/Testing/data/searchorder.xsjs?ID=" + speech },      function(error, response, body) { 
+    request.get({ url: "https://prashanthdbp1942060739trial.hanatrial.ondemand.com/Testing/data/searchorder.xsjs?ID=1000100103"},      function(error, response, body) { 
               if (!error && response.statusCode == 200) { 
                  return res;
                  } 
