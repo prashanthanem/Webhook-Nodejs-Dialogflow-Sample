@@ -25,7 +25,7 @@ ExpServer.post("/orders", function(req, res) {
               if (!error && response.statusCode == 200) { 
                  return res.json({
                  speech: speech,
-                 displayText: speech,
+                 displayText: displayText,
                  source: "webhook-nodejs-sample"
                   }); 
                  } 
