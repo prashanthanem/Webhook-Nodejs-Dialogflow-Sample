@@ -3,7 +3,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const request = require('request');
-
 const ExpServer = express();
 
 ExpServer.use(
@@ -15,29 +14,37 @@ ExpServer.use(
 ExpServer.use(bodyParser.json());
 
 ExpServer.post("/orders", function(req, res) {
-  var speech =
-    req.body.result &&
-    req.body.result.parameters &&
-    req.body.result.parameters.ID
-      ? req.body.result.parameters.ID
-      : "Seems like some problem. Speak again.";
-    var a,b;
-    
-    request.get({ url: "https://prashanthdbp1942060739trial.hanatrial.ondemand.com/Testing/data/searchorder.xsjs?ID=1000100103"},      function(error, response, body) { 
-              if (!error && response.statusCode == 200) {   
-                
-                a = "Prashanth";
-                b = "Anem";
-                
-               
-                } 
-             }); 
-   return res.json({
-    speech: "Prashanth",
-    displayText: "Anem",
+	if(req.body.result.action =="getthestatus"){	
+	gettheorderstatus(req.body.result.parameters.ID, function(resp){
+    var jsonres = JSON.parse(resp);
+    console.log(jsonres.speech);
+    console.log(jsonres.displayText);
+	return res.json({
+    speech: jsonres.speech,
+    displayText: jsonres.displayText,
     source: "webhook-echo-sample"
-  });
+     });
+	});	
+	}  
 });
+
+
+function gettheorderstatus(trust_you_id, callback) {
+    var options = {
+        uri : 'https://prashanthdbp1942060739trial.hanatrial.ondemand.com/Testing/data/searchorder.xsjs?ID='+trust_you_id,
+        method : 'GET'
+    }; 
+    var res = '';
+    request(options, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res = body;
+        }
+        else {
+            res = 'Not Found';
+        }
+        callback(res);
+    });
+}
 
 ExpServer.listen(process.env.PORT || 8000, function() {
   console.log("Server up and listening");
