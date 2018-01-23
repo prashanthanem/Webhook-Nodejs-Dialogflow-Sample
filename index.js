@@ -14,7 +14,7 @@ ExpServer.use(
 ExpServer.use(bodyParser.json());
 
 ExpServer.post("/orders", function(req, res) {
-	if(req.body.result.action =="getthestatus"){	
+	if(req.body.result.action =="getthestatus" && req.body.result.parameters.ID.length = 10){	
 	gettheorderstatus(req.body.result.parameters.ID, function(resp){
     var jsonres = JSON.parse(resp);
     console.log(jsonres.speech);
@@ -25,7 +25,13 @@ ExpServer.post("/orders", function(req, res) {
     source: "webhook-echo-sample"
      });
 	});	
-	}  
+	}else{
+	return res.json({
+    speech: "Please provide valid order number",
+    displayText: "Please provide valid order number",
+    source: "webhook-echo-sample"
+     });
+	}
 });
 
 
