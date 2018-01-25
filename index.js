@@ -16,11 +16,20 @@ ExpServer.post("/orders", function(req, res) {
 	if((req.body.result.action == "getthestatus") && (req.body.result.parameters.ID != "")){	
 	gettheorderstatus(req.body.result.parameters.ID, function(resp){
 	var jsonres = JSON.parse(resp);
+	if(jsonres[0].orderStatus){
 	return res.json({
     speech: "The status of the order is " + jsonres[0].orderStatus,
     displayText: "The status of the order is " + jsonres[0].orderStatus,
     source: "webhook-echo-sample"
      });
+	 }
+	 else{
+	return res.json({
+    speech: "Please provide valid order number",
+    displayText: "Please provide valid order number",
+    source: "webhook-echo-sample"
+     });
+	 }
 	});	
 	}else{
 	return res.json({
@@ -43,11 +52,7 @@ function gettheorderstatus(id, callback) {
 		respo = body;			
         }
         else {            
-			respo.json({
-			speech: "Not Found",
-			displayText: "Not Found",
-			source: "webhook-echo-sample"
-			});
+		respo = body;	
         }
         callback(respo);
     });
