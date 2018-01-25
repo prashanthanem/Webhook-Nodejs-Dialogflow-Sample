@@ -1,8 +1,7 @@
 "use strict";
-
 const express = require("express");
 const bodyParser = require("body-parser");
-const request = require('request');
+const request = require("request");
 const ExpServer = express();
 
 ExpServer.use(
@@ -14,7 +13,7 @@ ExpServer.use(
 ExpServer.use(bodyParser.json());
 
 ExpServer.post("/orders", function(req, res) {
-	if(req.body.result.action =="getthestatus" && req.body.result.parameters.ID.length = 10){	
+	if((req.body.result.action == "getthestatus") && (req.body.result.parameters.ID != "")){	
 	gettheorderstatus(req.body.result.parameters.ID, function(resp){
     var jsonres = JSON.parse(resp);
     console.log(jsonres.speech);
@@ -35,20 +34,24 @@ ExpServer.post("/orders", function(req, res) {
 });
 
 
-function gettheorderstatus(trust_you_id, callback) {
+function gettheorderstatus(id, callback) {
     var options = {
-        uri : 'https://prashanthdbp1942060739trial.hanatrial.ondemand.com/Testing/data/searchorder.xsjs?ID='+trust_you_id,
+        uri : 'https://prashanthdbp1942060739trial.hanatrial.ondemand.com/Testing/data/searchorder.xsjs?ID='+id,
         method : 'GET'
     }; 
-    var res = '';
+    var respo = '';
     request(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            res = body;
+            respo = body;
         }
-        else {
-            res = 'Not Found';
+        else {            
+			respo.json({
+			speech: "Not Found",
+			displayText: "Not Found",
+			source: "webhook-echo-sample"
+			});
         }
-        callback(res);
+        callback(respo);
     });
 }
 
