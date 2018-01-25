@@ -16,8 +16,8 @@ ExpServer.post("/orders", function(req, res) {
 	if((req.body.result.action == "getthestatus") && (req.body.result.parameters.ID != "")){	
 	gettheorderstatus(req.body.result.parameters.ID, function(resp){		
 	return res.json({
-    speech: "The Status of the order is " + resp[0].orderStatus,
-    displayText: "The Status of the order is " + resp[0].orderStatus,
+    speech: resp.speech,
+    displayText: resp.displayText,
     source: "webhook-echo-sample"
      });
 	});	
@@ -38,8 +38,12 @@ function gettheorderstatus(id, callback) {
     }; 
     var respo = '';
     request(options, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            respo = body;
+        if (!error && response.statusCode == 200) {          
+			respo.json({
+			speech: "The Status of the order is " + body[0].orderStatus,
+			displayText: "The Status of the order is " + body[0].orderStatus,
+			source: "webhook-echo-sample"
+			});
         }
         else {            
 			respo.json({
