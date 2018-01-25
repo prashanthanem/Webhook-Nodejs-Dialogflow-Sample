@@ -17,8 +17,8 @@ ExpServer.post("/orders", function(req, res) {
 	gettheorderstatus(req.body.result.parameters.ID, function(resp){
 	var jsonres = JSON.parse(resp);
 	return res.json({
-    speech: jsonres[0].orderStatus,
-    displayText: jsonres[0].orderStatus,
+    speech: "The status of the order is " + jsonres[0].orderStatus,
+    displayText: "The status of the order is " + jsonres[0].orderStatus,
     source: "webhook-echo-sample"
      });
 	});	
