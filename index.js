@@ -17,8 +17,8 @@ ExpServer.post("/orders", function(req, res) {
 	gettheorderstatus(req.body.result.parameters.ID, function(resp){
 	var jsonres = JSON.parse(resp);
 	return res.json({
-    speech: jsonres.speech,
-    displayText: jsonres.displayText,
+    speech: jsonres[0].orderStatus,
+    displayText: jsonres[0].orderStatus,
     source: "webhook-echo-sample"
      });
 	});	
@@ -40,12 +40,7 @@ function gettheorderstatus(id, callback) {
     var respo = '';
     request(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-		var body = JSON.parse(body);
-			respo.json({
-			speech: "The Status of the order is " + body[0].orderStatus,
-			displayText: "The Status of the order is " + body[0].orderStatus,
-			source: "webhook-echo-sample"
-			});
+		respo = body;			
         }
         else {            
 			respo.json({
