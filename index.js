@@ -80,7 +80,7 @@ function gettheorderstatus(id, callback) {
 function updateorderstatus(orderid, orderstatus, callback) {
     var options = {
         uri : 'http://35.202.179.196/EventEngine/rest/googlepoc/updateOrder?orderId='+orderid+'&&orderStatus='+orderstatus,	
-        method : 'POST'
+        method : 'GET'
     }; 
     var respo = '';
     request(options, function (error, response, body) {
