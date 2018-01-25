@@ -14,13 +14,10 @@ ExpServer.use(bodyParser.json());
 
 ExpServer.post("/orders", function(req, res) {
 	if((req.body.result.action == "getthestatus") && (req.body.result.parameters.ID != "")){	
-	gettheorderstatus(req.body.result.parameters.ID, function(resp){
-    var jsonres = JSON.parse(resp);
-    console.log(jsonres.speech);
-    console.log(jsonres.displayText);
+	gettheorderstatus(req.body.result.parameters.ID, function(resp){		
 	return res.json({
-    speech: jsonres.speech,
-    displayText: jsonres.displayText,
+    speech: "The Status of the order is " + resp[0].orderStatus,
+    displayText: "The Status of the order is " + resp[0].orderStatus,
     source: "webhook-echo-sample"
      });
 	});	
@@ -36,7 +33,7 @@ ExpServer.post("/orders", function(req, res) {
 
 function gettheorderstatus(id, callback) {
     var options = {
-        uri : 'https://prashanthdbp1942060739trial.hanatrial.ondemand.com/Testing/data/searchorder.xsjs?ID='+id,
+        uri : 'http://35.202.179.196/EventEngine/rest/googlepoc/minifetchorders?orderId='+id,
         method : 'GET'
     }; 
     var respo = '';
