@@ -14,10 +14,11 @@ ExpServer.use(bodyParser.json());
 
 ExpServer.post("/orders", function(req, res) {
 	if((req.body.result.action == "getthestatus") && (req.body.result.parameters.ID != "")){	
-	gettheorderstatus(req.body.result.parameters.ID, function(resp){		
+	gettheorderstatus(req.body.result.parameters.ID, function(resp){
+	var jsonres = JSON.parse(resp)
 	return res.json({
-    speech: resp.speech,
-    displayText: resp.displayText,
+    speech: jsonres.speech,
+    displayText: jsonres.displayText,
     source: "webhook-echo-sample"
      });
 	});	
