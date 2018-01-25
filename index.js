@@ -15,7 +15,7 @@ ExpServer.use(bodyParser.json());
 ExpServer.post("/orders", function(req, res) {
 	if((req.body.result.action == "getthestatus") && (req.body.result.parameters.ID != "")){	
 	gettheorderstatus(req.body.result.parameters.ID, function(resp){
-	var jsonres = JSON.parse(resp)
+	var jsonres = JSON.parse(resp);
 	return res.json({
     speech: jsonres.speech,
     displayText: jsonres.displayText,
