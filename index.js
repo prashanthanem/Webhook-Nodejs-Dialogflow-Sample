@@ -39,7 +39,8 @@ function gettheorderstatus(id, callback) {
     }; 
     var respo = '';
     request(options, function (error, response, body) {
-        if (!error && response.statusCode == 200) {          
+        if (!error && response.statusCode == 200) {
+		var body = JSON.parse(body);
 			respo.json({
 			speech: "The Status of the order is " + body[0].orderStatus,
 			displayText: "The Status of the order is " + body[0].orderStatus,
